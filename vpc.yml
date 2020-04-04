@@ -85,9 +85,6 @@
     nxos_command:
       commands: show port-channel summary
     register: stdout
-
-  - debug:
-      var: stdout.stdout_lines
   
 
 # Configuration SW Secondary
@@ -118,7 +115,8 @@
     nxos_command:
       commands: copy running-config startup-config
 
-
+  - debug:
+      var: stdout.stdout_lines
 
 
 
