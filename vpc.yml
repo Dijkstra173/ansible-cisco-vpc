@@ -73,15 +73,6 @@
         - "{{ int1P }}"
         - "{{ int2P }}"
 
-  - name: Confiurre Interface
-    nxos_l2_interfaces:
-      config:
-        - name: Eth1/7
-          trunk:
-            native_vlan: 10
-            allowed_vlans: 2-9
-      state: merged
-
   
   - name: Wr Mem
     nxos_command:
