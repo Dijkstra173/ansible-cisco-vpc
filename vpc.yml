@@ -64,11 +64,6 @@
       name: Eth1/7
       state: unconfigured
 
-  - name: Reset Int eth1/7
-    nxos_l2_interface:
-      name: Eth1/7
-      state: unconfigured
-
   - name: Trunk mode Eth1/7
     nxos_l2_interface:
       name: Ethernet1/7
@@ -81,12 +76,14 @@
       members:
         - "{{ int1P }}"
         - "{{ int2P }}"
-
   
   - name: Wr Mem
     nxos_command:
       commands: copy running-config startup-config
-
+ 
+ - name: run show version on remote devices
+    nxos_command:
+      commands: show version
 
 # Configuration SW Secondary
 - hosts: "{{ swsecondary }}"
