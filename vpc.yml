@@ -81,10 +81,13 @@
     nxos_command:
       commands: copy running-config startup-config
  
-  - name: sh vers
+  - name: show port-channel summary
     nxos_command:
-      commands: show vers
-    register: stdout 
+      commands: show port-channel summary
+    register: stdout
+
+  - debug:
+      var: stdout
   
 
 # Configuration SW Secondary
