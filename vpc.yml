@@ -22,7 +22,7 @@
   - name: Create Port-channell 
     nxos_linkagg:
       aggregate:
-        - { group: 100 }
+        - { group: "{{ PoIDPeerLink }}" }
   
   - name: Enable PeerLink Po
     nxos_vpc_interface:
@@ -52,7 +52,7 @@
   tasks: 
   - name: VPC configuration Sw Primaire
     nxos_vpc:
-      domain: 100
+      domain: "{{ vpcdomain }}"
       role_priority: 1000
       pkl_dest: "{{ swsecondary }}"
       pkl_src: "{{ swprimary }}"
@@ -71,7 +71,7 @@
 
   - name: Setup Interface PortGroup PeerLink Sw Primaire
     nxos_linkagg:
-      group: 100
+      group: "{{ PoIDPeerLink }}"
       mode: active
       members:
         - "{{ int1P }}"
@@ -96,7 +96,7 @@
   tasks: 
   - name: VPC configuration Sw Secondary
     nxos_vpc:
-      domain: 100
+      domain: "{{ vpcdomain }}"
       role_priority: 2000
       pkl_dest: "{{ swprimary }}"
       pkl_src: "{{ swsecondary }}"
@@ -105,7 +105,7 @@
 
   - name: Setup Interface PortGroup PeerLink Sw Secondary
     nxos_linkagg:
-      group: 100
+      group: "{{ PoIDPeerLink }}"
       mode: active
       members:
         - "{{ int1S }}"

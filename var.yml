@@ -1,6 +1,8 @@
-# Configuration IP SW
+# Variable global
 swprimary: 172.31.1.100
 swsecondary: 172.31.1.101
+vpcdomain: 100
+PoIDPeerLink: 100
 
 #Interface PeerLink Sw Primaire
 int1P : Eth1/4
