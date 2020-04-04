@@ -81,9 +81,9 @@
     nxos_command:
       commands: copy running-config startup-config
  
- - name: run show version on remote devices
+  - name: Wr Mem
     nxos_command:
-      commands: show version
+      commands: show vers
 
 # Configuration SW Secondary
 - hosts: "{{ swsecondary }}"
