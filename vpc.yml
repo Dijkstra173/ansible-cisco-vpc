@@ -81,7 +81,7 @@
     nxos_command:
       commands: copy running-config startup-config
  
-  - name: Wr Mem
+  - name: sh vers
     nxos_command:
       commands: show vers
       output: stdout
