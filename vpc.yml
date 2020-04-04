@@ -84,9 +84,9 @@
   - name: Wr Mem
     nxos_command:
       commands: show vers
-      registrer: swP
+      output: stdout
   
-  - debug: msq="{{ swP.stdout }}"
+  - debug: msq="{{ stdout }}"
 
 # Configuration SW Secondary
 - hosts: "{{ swsecondary }}"
