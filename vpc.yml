@@ -36,7 +36,7 @@
       parents: class type network-qos class-default
       before: policy-map type network-qos jumbo
 
-  - name: Enable Jumbo 1/2
+  - name: Enable Jumbo 2/2
     nxos_config:
       lines:
         - service-policy type network-qos jumbo
