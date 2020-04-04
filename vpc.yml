@@ -59,9 +59,9 @@
       peer_gw: false
       auto_recovery: true
 
-  - name: Reset Int "{{ int1P }}"
+  - name: Reset Int eth1/7
     nxos_l2_interface:
-      name: "{{ int1P }}"
+      name: Eth1/7
       state: unconfigured
 
 
