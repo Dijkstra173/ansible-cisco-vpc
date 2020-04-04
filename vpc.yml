@@ -87,7 +87,7 @@
     register: stdout
 
   - debug:
-      var: stdout
+      var: stdout.stdout_lines
   
 
 # Configuration SW Secondary
