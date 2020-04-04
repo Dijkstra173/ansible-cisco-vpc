@@ -84,7 +84,7 @@
   - name: sh vers
     nxos_command:
       commands: show vers
-      register: stdout 
+    register: stdout 
   
 
 # Configuration SW Secondary
