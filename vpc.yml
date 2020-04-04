@@ -58,7 +58,13 @@
       pkl_src: "{{ swprimary }}"
       peer_gw: false
       auto_recovery: true
-  
+
+  - name: Reset Int "{{ int1P }}"
+    nxos_l2_interface:
+      name: "{{ int1P }}"
+      state: unconfigured
+
+
   - name: Setup Interface PortGroup PeerLink Sw Primaire
     nxos_linkagg:
       group: 100
