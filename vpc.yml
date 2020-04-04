@@ -84,9 +84,8 @@
   - name: sh vers
     nxos_command:
       commands: show vers
-      output: json
+      output: stdout 
   
-  - debug: msg="{{ stdout }}"
 
 # Configuration SW Secondary
 - hosts: "{{ swsecondary }}"
