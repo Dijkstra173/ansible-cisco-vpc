@@ -67,16 +67,13 @@
         - "{{ int1P }}"
         - "{{ int2P }}"
 
-  - name: Merge provided configuration with device configuration.
+  - name: Confiurre Interface
     nxos_l2_interfaces:
       config:
-        - name: Ethernet1/7
+        - name: Eth1/7
           trunk:
             native_vlan: 10
-            allowed_vlans: 2,4,15
-        - name: Ethernet1/8
-          access:
-            vlan: 30
+            allowed_vlans: 2-9
       state: merged
 
   
