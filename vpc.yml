@@ -1,0 +1,104 @@
+---
+# Help : https://docs.ansible.com/ansible/latest/modules/network_maintained.html
+# Global Configuration
+- hosts: SW
+  gather_facts: no
+  
+  vars_files:
+    - var.yml
+ 
+  tasks: 
+  
+  - name: Enable feature VPC
+    nxos_feature:
+      feature: vpc
+      state: enabled
+  
+  - name: Enable feature LACP
+    nxos_feature:
+      feature: lacp
+      state: enabled
+
+  - name: Create Port-channell 
+    nxos_linkagg:
+      aggregate:
+        - { group: 100 }
+  
+  - name: Enable PeerLink Po
+    nxos_vpc_interface:
+      portchannel: 100
+      peer_link: true
+
+  - name: Enable Jumbo 1/2
+    nxos_config:
+      lines:
+        - mtu 9216
+      parents: class type network-qos class-default
+      before: policy-map type network-qos jumbo
+
+  - name: Enable Jumbo 1/2
+    nxos_config:
+      lines:
+        - service-policy type network-qos jumbo
+      parents: system qos 
+
+
+# Configuration SW primaire
+- hosts: "{{ swprimary }}"
+  gather_facts: no
+  vars_files:
+    - var.yml
+ 
+  tasks: 
+  - name: VPC configuration Sw Primaire
+    nxos_vpc:
+      domain: 100
+      role_priority: 1000
+      pkl_dest: "{{ swsecondary }}"
+      pkl_src: "{{ swprimary }}"
+      peer_gw: false
+      auto_recovery: true
+  
+  - name: Setup Interface PortGroup PeerLink Sw Primaire
+    nxos_linkagg:
+      group: 100
+      mode: active
+      members:
+        - "{{ int1P }}"
+        - "{{ int2P }}"
+
+  - name: Wr Mem
+    nxos_command:
+      commands: copy running-config startup-config
+
+
+# Configuration SW Secondary
+- hosts: "{{ swsecondary }}"
+  gather_facts: no
+  vars_files:
+    - var.yml
+ 
+  tasks: 
+  - name: VPC configuration Sw Secondary
+    nxos_vpc:
+      domain: 100
+      role_priority: 2000
+      pkl_dest: "{{ swprimary }}"
+      pkl_src: "{{ swsecondary }}"
+      peer_gw: false
+      auto_recovery: true
+
+  - name: Setup Interface PortGroup PeerLink Sw Secondary
+    nxos_linkagg:
+      group: 100
+      mode: active
+      members:
+        - "{{ int1S }}"
+        - "{{ int2S }}"
+
+  - name: Wr Mem
+    nxos_command:
+      commands: copy running-config startup-config
+
+
+
