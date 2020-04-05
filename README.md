@@ -5,6 +5,7 @@
 ### Features:
 * Configuration VPC
 * Configuration Port-Channel PeekLink
+* Setup Master and Slave device
 
 ## Work On
  - ansible 2.7.7
