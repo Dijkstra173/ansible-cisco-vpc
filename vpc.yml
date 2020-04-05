@@ -59,15 +59,15 @@
       peer_gw: false
       auto_recovery: true
 
-  - name: Reset Int eth1/7
+  - name: Reset Int "{{ int1P }}"
     nxos_l2_interface:
-      name: Eth1/7
+      name: "{{ int1P }}"
       state: unconfigured
 
-  - name: Trunk mode Eth1/7
+  - name: Reset Int "{{ int2P }}"
     nxos_l2_interface:
-      name: Ethernet1/7
-      mode: trunk
+      name: "{{ int2P }}"
+      state: unconfigured
 
   - name: Setup Interface PortGroup PeerLink Sw Primaire
     nxos_linkagg:
@@ -76,7 +76,12 @@
       members:
         - "{{ int1P }}"
         - "{{ int2P }}"
-  
+
+  - name: Trunk mode "{{ intPoPeerLink }}"
+    nxos_l2_interface:
+      name: "{{ intPoPeerLink }}"
+      mode: trunk
+
   - name: Wr Mem
     nxos_command:
       commands: copy running-config startup-config
@@ -103,6 +108,17 @@
       peer_gw: false
       auto_recovery: true
 
+  - name: Reset Int "{{ int1S }}"
+    nxos_l2_interface:
+      name: "{{ int1S }}"
+      state: unconfigured
+
+  - name: Reset Int "{{ int2S }}"
+    nxos_l2_interface:
+      name: "{{ int2S }}"
+      state: unconfigured
+
+
   - name: Setup Interface PortGroup PeerLink Sw Secondary
     nxos_linkagg:
       group: "{{ PoIDPeerLink }}"
@@ -110,6 +126,11 @@
       members:
         - "{{ int1S }}"
         - "{{ int2S }}"
+
+  - name: Trunk mode "{{ intPoPeerLink }}"
+    nxos_l2_interface:
+      name: "{{ intPoPeerLink }}"
+      mode: trunk
 
   - name: Wr Mem
     nxos_command:
