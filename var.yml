@@ -9,6 +9,6 @@ intPoPeerLink : po100
 int1P : Eth1/4
 int2P : Eth1/5
 
-#Interface PeerLink Sw Primaire
+#Interface PeerLink Sw Secondaire
 int1S : Eth1/4
 int2S : Eth1/5
